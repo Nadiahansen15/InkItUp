@@ -10,7 +10,7 @@ from users.models import User
 from django.db import connection
 from rest_framework import generics
 # from django.db.models.query import QuerySet
-from .calls import call_show_appointments, call_Update_ink_storage, call_Ink_Batchnumber_Callback, call_Register_Tattoo_with_Ink
+from .calls import call_show_appointments, call_Update_ink_storage, call_Ink_Batchnumber_Callback, call_Register_Tattoo_with_Ink, mongo_get_customer, mongo_create_appointment
 
 # pylint: disable=E1101
 
@@ -103,3 +103,13 @@ def Ink_Batchnumber_Callback(request, batchnumber):
 def Register_Tattoo_with_Ink(request, NewidTattoo, NewDescription, NewPlacementOnBody, NewAppointment_idAppointment, Inkbatchnumber):
     call_Register_Tattoo_with_Ink(NewidTattoo, NewDescription, NewPlacementOnBody, NewAppointment_idAppointment, Inkbatchnumber)
     return HttpResponse(content_type = 'application/json')
+
+#MONGODB -----------------
+
+def show_customer(request, date):
+    action = mongo_get_customer(date)
+    return HttpResponse(action, content_type = "application/json")
+
+def create_appointment_existing_customer(request, new_c_id, new_a_id, new_datetime, new_sessionlength, new_tattooparlorid, new_artistid):
+    new_appointment = mongo_create_appointment(new_c_id, new_a_id, new_datetime, new_sessionlength, new_tattooparlorid, new_artistid)
+    return HttpResponse(new_appointment, content_type = "application/json")

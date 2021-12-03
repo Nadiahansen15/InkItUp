@@ -1,44 +1,66 @@
 import pymongo
+import certifi
 #connect_string = 'mongodb+srv://<username>:<password>@<atlas cluster>/<myFirstDatabase>?retryWrites=true&w=majority' 
 
 from django.conf import settings
-my_client = pymongo.MongoClient('mongodb+srv://nadia:1234!@inkitup-mongodb.elev4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+my_client = pymongo.MongoClient('mongodb+srv://root:1234!@inkitup-mongodb.elev4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', tlsCAFile=certifi.where())
 
 
 # First define the database name
-dbname = my_client['InkItUp_MongoDB']
+dbname = my_client['InkItUp']
 
 # Now get/create collection name (remember that you will see the database in your mongodb cluster only after you create a collection
-collection_name = dbname["appointmentfull"]
-
+collection_name = dbname["Customer"]
+'''
 #let's create two documents
-customer_1 = {
-    "CPR": "456566",
-    "Name" : "Paracetamol hold",
-    "Email" : "test@test.dk",
-    "PhoneNumber" : "14546544",
-    "registered": "2017-01-20",
-    "hehe": "det nice"
+Customer1 = {
+        "_id": 5173,
+        "name": "Miss Kelsie Okuneva,
+        "phonenumber": "23785111",
+        "email": "guy.terry@gmail.com",
+        "registered": "2020-07-15",
+        "appointments": 
+            [
+                {
+                    "_id": 2,
+                    "datetime": "2022-10-13 05:00:00",
+                    "sessionlenght": "3",
+                    "tattooparlor": {
+                        "_id": 31111119
+                    },
+                    "artist": {
+                         "_id": 40443201
+                    },
+                    "price": "5000",
+                    "tattoos": [
+                        {
+                            "_id": 45,
+                            "description": "gest gest gest. Voluptatem doloribus sequi voluptatem sit ipsa nostrum. Dolor earum ut maiores autem cumque. Sit fugit ut soluta commodi rerum nihil.",
+                            "placementonbody": "foden",
+                            "inks":
+                            [
+                                {
+                                    "_id": 13468
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]      
 }
-customer_2 = {
-    "CPR": "45638893",
-    "Name" : "hold adesen",
-    "Email" : "tt@test.dk",
-    "PhoneNumber" : "14546555",
-    "registered": "2017-01-20",
-    "hehe": "det makes no sense"
-}
+
+
 # Insert the documents
-collection_name.insert_many([customer_1, customer_2])
+collection_name.insert_many([Customer1])
 # Check the count
 count = collection_name.count()
 print(count)
-
+'''
 # Read the documents
-cus_details = collection_name.find({})
+cus_details = collection_name.find({"appointments.datetime": "2022-10-13 05:00:00"})
 # Print on the terminal
 for r in cus_details:
-    print(r["Name"])
+    print(r["_id"])
 # Update one document
 # update_data = collection_name.update_one({'medicine_id':'RR000123456'}, {'$set':{'common_name':'Paracetamol 500'}})
 
