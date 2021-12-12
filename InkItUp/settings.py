@@ -96,11 +96,11 @@ WSGI_APPLICATION = 'InkItUp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'InkUp',
-        'USER': 'root',
+        'NAME': 'InkItUp',
+        'USER': 'application',
         'HOST': 'localhost',
         'PORT': '3306',
-        'PASSWORD': '1234',
+        'PASSWORD': '1234!',
     },
     'mongo': {
         'ENGINE': 'djongo',
