@@ -63,11 +63,11 @@ def mongo_get_apointment(date, tp_id):
     data = []
     for x in customer_collection.aggregate([{"$match": {"appointments.tattooparlor._id": tp_id}},
             {"$unwind": '$appointments'},
-                {"$match": {"appointments.datetime": date}},
+                {"$match": {"appointments.date": date}},
                     {"$project": {
                             "name": 1,
                             "phonenumber": 1,
-                            "appointments.datetime": 1,
+                            "appointments.date": 1,
                             "appointments.sessionlenght": 1,
                             "appointments.artists._id": 1,
                             "appointments.price": 1}}]):
