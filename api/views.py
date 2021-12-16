@@ -85,8 +85,8 @@ class appointmenttattooView(generics.ListAPIView):
 
 
 # STORED PROCEDURES FUNCTION BASED
-def show_appointments(request, date):
-    Storedp = call_show_appointments(date)
+def show_appointments(request, Tattooparlor_cvr, date):
+    Storedp = call_show_appointments(Tattooparlor_cvr, date)
     return HttpResponse(Storedp, content_type = 'application/json')
 
 

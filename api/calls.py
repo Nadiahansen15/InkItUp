@@ -5,12 +5,12 @@ from django.views.decorators.csrf import csrf_exempt
 from users.models import User
 
 @csrf_exempt
-def call_show_appointments(date):
+def call_show_appointments(Tattooparlor_cvr, date):
     cursor = connection.cursor()
     try:
         id = 0
         appointments = dict()
-        cursor.execute("CALL InkItUp.Show_tattooparlor_Appointments('{}','{}');".format(User.Tattooparlor_cvr, date))
+        cursor.execute("CALL InkItUp.Show_tattooparlor_Appointments('{}','{}');".format(Tattooparlor_cvr, date))
         for record in cursor.fetchall():
             id += 1
             appointments[id] = {"tattooparlor_name": record[0], "booking_date_time": record[1], "SessionLenght": record[2], "Artist": record[3], "Hourly_rate": record[4], "Customer_Name": record[5], "PhoneNumber": record[6], "Totalprice": record[7]}
